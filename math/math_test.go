@@ -44,3 +44,36 @@ func TestSum(t *testing.T) {
 	var expInt8 int8 = 52
 	assert.Equal(t, expInt8, sumInt8)
 }
+
+func BenchmarkMax(b *testing.B) {
+	ints := []int{-2, 3, 15, 28, 4, 100, 99, 42}
+	floats := []float64{-2.2, 3.2, 15.5, 28.1, 4.4, 100.8, 99.9, 42.2}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		Max(ints...)
+		Max(floats...)
+	}
+}
+
+func BenchmarkMin(b *testing.B) {
+	ints := []int{1, -2, 3, 15, 28, 4, -100, 42}
+	floats := []float64{1.1, -2.2, 3.2, 15.8, 28.1, 4.4, -100.7, 42.3}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		Min(ints...)
+		Min(floats...)
+	}
+}
+
+func BenchmarkSum(b *testing.B) {
+	ints := []int{1, -2, 3, 15, 28, 4, 100, 42, 10, 99}
+	floats := []float64{1.1, -2.2, 3.2, 15.8, 28.1, 4.4, 100.7, 42.3, 99.9}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		Sum(ints...)
+		Sum(floats...)
+	}
+}
