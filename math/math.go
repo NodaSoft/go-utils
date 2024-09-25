@@ -6,6 +6,7 @@ import (
 
 // Max return maximum value from presented
 func Max[T generics.Numeric](n ...T) T {
+	// TODO нужна ли проверка на пустоту передаваемого среза?
 	m := n[0]
 	for i := 1; i < len(n); i++ {
 		if n[i] > m {

@@ -1,6 +1,6 @@
 package maps
 
-// Has проверяет, содержит ли карта данное значение.
+// Has checks if the map contains the given key.
 func Has[K comparable, V any](m map[K]V, n K) bool {
 	_, ok := m[n]
 
