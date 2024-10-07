@@ -178,7 +178,7 @@ func SliceDiff[T comparable](slices ...[]T) []T {
 	return Unique(res)
 }
 
-// SliceIntersect returns a slice with unique values present in both slices.
+// SliceIntersect returns a slice with unique values present in all provided slices.
 func SliceIntersect[T comparable](slices ...[]T) []T {
 	tmpValuesMap := make(map[int]map[T]struct{}, len(slices))
 

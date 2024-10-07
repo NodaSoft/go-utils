@@ -1,8 +1,8 @@
 package maps
 
 // Has checks if the map contains the given key.
-func Has[K comparable, V any](m map[K]V, n K) bool {
-	_, ok := m[n]
+func Has[K comparable, V any](m map[K]V, key K) bool {
+	_, ok := m[key]
 
 	return ok
 }
