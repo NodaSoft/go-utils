@@ -7,42 +7,42 @@ import (
 )
 
 func TestHas(t *testing.T) {
-	// Проверка существующего ключа
+	// Check for an existing key
 	m := map[int]string{1: "one", 2: "two", 3: "three"}
 	assert.True(t, Has(m, 1))
 	assert.True(t, Has(m, 2))
 
-	// Проверка отсутствующего ключа
+	// Check for a non-existent key
 	assert.False(t, Has(m, 4))
 
-	// Проверка пустой карты
+	// Check for an empty map
 	emptyMap := make(map[int]string)
 	assert.False(t, Has(emptyMap, 1))
 }
 
 func TestMerge(t *testing.T) {
-	// Две непересекающиеся карты
+	// Two non-overlapping maps
 	a := map[int]string{1: "one", 2: "two"}
 	b := map[int]string{3: "three", 4: "four"}
 	expected := map[int]string{1: "one", 2: "two", 3: "three", 4: "four"}
 	result := Merge(a, b)
 	assert.Equal(t, expected, result)
 
-	// Пересекающиеся ключи, значения карты a должны быть приоритетными
+	// Overlapping keys, values from map 'a' should have priority
 	a = map[int]string{1: "uno", 2: "dos"}
 	b = map[int]string{1: "one", 3: "three"}
 	expected = map[int]string{1: "uno", 2: "dos", 3: "three"}
 	result = Merge(a, b)
 	assert.Equal(t, expected, result)
 
-	// Пустая карта b
+	// Empty map 'b'
 	a = map[int]string{1: "one", 2: "two"}
 	b = map[int]string{}
 	expected = map[int]string{1: "one", 2: "two"}
 	result = Merge(a, b)
 	assert.Equal(t, expected, result)
 
-	// Пустая карта a
+	// Empty map 'a'
 	a = map[int]string{}
 	b = map[int]string{3: "three", 4: "four"}
 	expected = map[int]string{3: "three", 4: "four"}
@@ -51,28 +51,28 @@ func TestMerge(t *testing.T) {
 }
 
 func TestDiffKeys(t *testing.T) {
-	// a содержит ключи, которых нет в b
+	// 'a' contains keys that are not in 'b'
 	a := map[int]string{1: "one", 2: "two", 3: "three"}
 	b := map[int]string{2: "two", 4: "four"}
 	expected := map[int]string{1: "one", 3: "three"}
 	result := DiffKeys(a, b)
 	assert.Equal(t, expected, result)
 
-	// Все ключи из a есть в b
+	// All keys from 'a' are in 'b'
 	a = map[int]string{1: "one", 2: "two"}
 	b = map[int]string{1: "one", 2: "two"}
 	expected = map[int]string{}
 	result = DiffKeys(a, b)
 	assert.Equal(t, expected, result)
 
-	// Пустая карта b
+	// Empty map 'b'
 	a = map[int]string{1: "one", 2: "two"}
 	b = map[int]string{}
 	expected = map[int]string{1: "one", 2: "two"}
 	result = DiffKeys(a, b)
 	assert.Equal(t, expected, result)
 
-	// Пустая карта a
+	// Empty map 'a'
 	a = map[int]string{}
 	b = map[int]string{1: "one", 2: "two"}
 	expected = map[int]string{}
