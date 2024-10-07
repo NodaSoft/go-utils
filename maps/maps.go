@@ -21,7 +21,7 @@ func Merge[K comparable, V any](a map[K]V, b map[K]V) map[K]V {
 	return result
 }
 
-// DiffKeys return map "a" without elements from map "b"
+// DiffKeys return map "a" without elements from map "b".
 func DiffKeys[K comparable, V any](a map[K]V, b map[K]V) map[K]V {
 	result := make(map[K]V, len(a))
 

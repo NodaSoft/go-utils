@@ -4,9 +4,9 @@ import (
 	"github.com/promax/go-utils/generics"
 )
 
-// Max return maximum value from presented
+// Max return maximum value from presented.
 func Max[T generics.Numeric](n ...T) T {
-	// TODO нужна ли проверка на пустоту передаваемого среза?
+	// TODO: Is it necessary to check if the passed slice is empty?
 	m := n[0]
 	for i := 1; i < len(n); i++ {
 		if n[i] > m {
@@ -17,7 +17,7 @@ func Max[T generics.Numeric](n ...T) T {
 	return m
 }
 
-// Min return minimal value from presented
+// Min return minimal value from presented.
 func Min[T generics.Numeric](n ...T) T {
 	m := n[0]
 	for i := 1; i < len(n); i++ {
@@ -29,7 +29,7 @@ func Min[T generics.Numeric](n ...T) T {
 	return m
 }
 
-// Sum return sum of all values
+// Sum return sum of all values.
 func Sum[T generics.Numeric](n ...T) T {
 	var sum T
 	for _, v := range n {
