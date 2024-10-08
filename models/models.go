@@ -4,6 +4,8 @@ import (
 	"github.com/promax/go-utils/slices"
 )
 
+// HasID is an interface that requires an implementation of the GetID method.
+// The GetID method should return the unique identifier of the entity as an unsigned integer.
 type HasID interface {
 	GetID() uint
 }
