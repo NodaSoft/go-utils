@@ -19,6 +19,17 @@ func TestMax(t *testing.T) {
 	assert.Equal(t, expInt8, int8Val)
 }
 
+func BenchmarkMax(b *testing.B) {
+	ints := []int{-2, 3, 15, 28, 4, 100, 99, 42}
+	floats := []float64{-2.2, 3.2, 15.5, 28.1, 4.4, 100.8, 99.9, 42.2}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		Max(ints...)
+		Max(floats...)
+	}
+}
+
 func TestMin(t *testing.T) {
 	assert.Equal(t, -2, Min(1, -2, 3, 15, 28, 4))
 	assert.Equal(t, -2.2, Min(1.1, -2.2, 3.2, 15, 28.1, 4.4))
@@ -30,6 +41,17 @@ func TestMin(t *testing.T) {
 	minInt8 := Min([]int8{4, -2, 3, 15, 28, 4}...)
 	var expInt8 int8 = -2
 	assert.Equal(t, expInt8, minInt8)
+}
+
+func BenchmarkMin(b *testing.B) {
+	ints := []int{1, -2, 3, 15, 28, 4, -100, 42}
+	floats := []float64{1.1, -2.2, 3.2, 15.8, 28.1, 4.4, -100.7, 42.3}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		Min(ints...)
+		Min(floats...)
+	}
 }
 
 func TestSum(t *testing.T) {
@@ -45,28 +67,6 @@ func TestSum(t *testing.T) {
 	assert.Equal(t, expInt8, sumInt8)
 }
 
-func BenchmarkMax(b *testing.B) {
-	ints := []int{-2, 3, 15, 28, 4, 100, 99, 42}
-	floats := []float64{-2.2, 3.2, 15.5, 28.1, 4.4, 100.8, 99.9, 42.2}
-
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		Max(ints...)
-		Max(floats...)
-	}
-}
-
-func BenchmarkMin(b *testing.B) {
-	ints := []int{1, -2, 3, 15, 28, 4, -100, 42}
-	floats := []float64{1.1, -2.2, 3.2, 15.8, 28.1, 4.4, -100.7, 42.3}
-
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		Min(ints...)
-		Min(floats...)
-	}
-}
-
 func BenchmarkSum(b *testing.B) {
 	ints := []int{1, -2, 3, 15, 28, 4, 100, 42, 10, 99}
 	floats := []float64{1.1, -2.2, 3.2, 15.8, 28.1, 4.4, 100.7, 42.3, 99.9}
@@ -76,4 +76,13 @@ func BenchmarkSum(b *testing.B) {
 		Sum(ints...)
 		Sum(floats...)
 	}
+}
+
+func TestIsEqual(t *testing.T) {
+	assert.Equal(t, true, IsEqual(0.2, 0.21, 0.2))
+	assert.Equal(t, true, IsEqual(0.2, 0.21, 0.1))
+	assert.Equal(t, true, IsEqual(0.2, 0.21, 0.01))
+	assert.Equal(t, false, IsEqual(0.2, 0.21, 0.009))
+	assert.Equal(t, false, IsEqual(0.2, 0.21, 0.005))
+	assert.Equal(t, false, IsEqual(0.2, 0.21, 0.001))
 }
