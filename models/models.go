@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/promax/go-utils/slices"
+	"github.com/nodasoft/go-utils/slices"
 )
 
 // HasID is an interface that requires an implementation of the GetID method.
