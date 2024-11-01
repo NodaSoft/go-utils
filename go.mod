@@ -1,4 +1,4 @@
-module github.com/promax/go-utils
+module github.com/nodasoft/go-utils
 
 go 1.22
 

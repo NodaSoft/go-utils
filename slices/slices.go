@@ -3,7 +3,7 @@ package slices
 import (
 	"strings"
 
-	"github.com/promax/go-utils/generics"
+	"github.com/nodasoft/go-utils/generics"
 )
 
 // ConvertSlice change type of slice elements

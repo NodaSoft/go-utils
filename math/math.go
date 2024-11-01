@@ -1,7 +1,7 @@
 package math
 
 import (
-	"github.com/promax/go-utils/generics"
+	"github.com/nodasoft/go-utils/generics"
 )
 
 // Max return maximum value from presented
