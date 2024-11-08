@@ -1,6 +1,8 @@
 package math
 
 import (
+	"math"
+
 	"github.com/nodasoft/go-utils/generics"
 )
 
@@ -37,4 +39,9 @@ func Sum[T generics.Numeric](n ...T) T {
 	}
 
 	return sum
+}
+
+// IsEqual compare floats with specified precision
+func IsEqual(a, b, precision float64) bool {
+	return math.Abs(a-b) < precision
 }
