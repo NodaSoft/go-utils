@@ -1,9 +1,9 @@
 # go-utils
 
-`go-utils` — это библиотека утилит для языка программирования Go. Предоставляет удобные обобщённые функции и
-инструменты для работы со срезами, строками, временем и многим другим.
+`go-utils` — is a utility library for the Go programming language. It provides convenient generic functions and tools
+for working with slices, strings, time, and much more.
 
-## Пакеты
+## Packages
 
 - [generics](#generics)
 - [maps](#maps)
@@ -16,54 +16,53 @@
 
 ## generics
 
-Пакет предоставляющий общие типы для использования в других пакетах проекта. Позволяет обобщить функции и
-типы данных, чтобы работать с различными типами значений.
+A package that provides common types for use in other project packages. It generalizes functions and data types to work
+with various value types.
 
-### Основные типы:
+### Main types:
 
-- **[Numeric](#Numeric)** - объединяет все числовые типы, такие как `int`, `float32`, `uint` и другие.
+- **[Numeric](#Numeric)** - combines all numeric types like `int`, `float32`, `uint` etc.
 
-#### Numeric
+### Numeric
 
-Интерфейс `Numeric` объединяет все числовые типы, такие как `int`, `float32`, `uint` и другие.
+The `Numeric` interface combines all numeric types like `int`, `float32`, `uint`, and others.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 func Sum[T Numeric](n []T) T {
     var sum T
     for _, v := range n {
-		sum += v
-	}
-	return sum
+        sum += v
+    }
+    return sum
 }
-
 ```
 
 ## maps
 
-Пакет предоставляющий функции для удобной работы с картами (map).
+A package that provides functions for convenient map operations.
 
-### Основные функции:
+### Main functions:
 
-- **[Has](#Has)**: Проверяет, содержит ли карта данный ключ.
-- **[Merge](#Merge)**: Объединяет две карты. Значения из карты "a" имеют более высокий приоритет.
-- **[DiffKeys](#DiffKeys)**: Возвращает карту "a" без элементов из карты "b".
+- **[Has](#Has)**: Checks if a map contains a given key.
+- **[Merge](#Merge)**: Merges two maps. Values from map "a" take precedence.
+- **[DiffKeys](#DiffKeys)**: Returns map "a" without the elements from map "b".
 
-#### Has
+### Has
 
-Проверяет, содержит ли карта данный ключ.
+Checks if a map contains a given key.
 
-**Параметры:**
+**Parameters:**
 
-- `m` — карта типа `map[K]V`, где `K` — ключи, а `V` — значения.
-- `n` — ключ, который необходимо проверить.
+- `m` — a map of type `map[K]V`, where `K` are the keys, and `V` are the values.
+- `key` — the key to check for.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `bool` — `true`, если ключ присутствует в карте, иначе `false`.
+- `bool` — `true`, if the key is present in the map, otherwise `false`.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 m := map[string]int{"one": 1, "two": 2}
@@ -71,20 +70,20 @@ exists := maps.Has(m, "two")
 // exists: true
 ```
 
-#### Merge
+### Merge
 
-Объединяет две карты. Значения из карты "a" имеют более высокий приоритет.
+Merges two maps. Values from map "a" take precedence.
 
-**Параметры:**
+**Parameters:**
 
-- `a` — первая карта типа `map[K]V`.
-- `b` — вторая карта типа `map[K]V`.
+- `a` — first map of type map `map[K]V`.
+- `b` — second map of type `map[K]V`.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `map[K]V` — новая карта, содержащая объединенные элементы.
+- `map[K]V` is a new map containing the combined elements.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 a := map[string]int{"one": 1, "two": 2}
@@ -93,20 +92,20 @@ merged := maps.Merge(a, b)
 // merged: {"one": 1, "two": 3, "three": 4}
 ```
 
-#### DiffKeys
+### DiffKeys
 
-Возвращает карту "a" без элементов из карты "b".
+Returns map "a" without elements from map "b".
 
-**Параметры:**
+**Parameters:**
 
-- `a` — карта типа `map[K]V`, из которой будут удалены элементы.
-- `b` — карта типа `map[K]V`, содержащая ключи, которые нужно удалить из карты "a".
+- `a` is a map of type `map[K]V` from which elements will be removed.
+- `b` is a map of type `map[K]V` containing the keys to be removed from the map "a".
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `map[K]V` — новая карта, содержащая элементы из "a", которых нет в "b".
+- `map[K]V` is a new map containing elements from "a" that are not in "b".
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 a := map[string]int{"one": 1, "two": 2, "three": 3}
@@ -117,65 +116,65 @@ diff := maps.DiffKeys(a, b)
 
 ## math
 
-Пакет предоставляющий математические функции для работы с числовыми типами.
+Package providing mathematical functions for working with numeric types.
 
-### Основные функции:
+### Main functions:
 
-- **[Max](#Max)**: Возвращает максимальное значение из переданных аргументов.
-- **[Min](#Min)**: Возвращает минимальное значение из переданных аргументов.
-- **[Sum](#Sum)**: Возвращает сумму всех переданных значений.
+- **[Max](#Max)**: Returns the maximum value from the provided arguments.
+- **[Min](#Min)**: Returns the minimum value from the provided arguments.
+- **[Sum](#Sum)**: Returns the sum of all the provided values.
 
-#### Max
+### Max
 
-Возвращает максимальное значение из переданных аргументов.
+Returns the maximum value from the provided arguments.
 
-**Параметры:**
+**Parameters:**
 
-- `n` — переменное количество аргументов типа `T`, где `T` — любой числовой тип, поддерживаемый интерфейсом `Numeric`.
+- `n` is a variable number of arguments of type `T`, where `T` is any numeric type supported by the `Numeric` interface.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `T` — максимальное значение из переданных аргументов.
+- `T` is the maximum value from the provided arguments.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 maxValue := math.Max(1, 2, 3, 4, 5)
 // maxValue: 5
 ```
 
-#### Min
+### Min
 
-Возвращает минимальное значение из переданных аргументов.
+Returns the minimum value from the provided arguments.
 
-**Параметры:**
+**Parameters:**
 
-- `n` — переменное количество аргументов типа `T`, где `T` — любой числовой тип, поддерживаемый интерфейсом `Numeric`.
+- `n` is a variable number of arguments of type `T`, where `T` is any numeric type supported by the `Numeric` interface.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `T` — минимальное значение из переданных аргументов.
+- `T` is the minimum value from the provided arguments.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 minValue := math.Min(1, 2, 3, 4, 5)
 // minValue: 1
 ```
 
-#### Sum
+### Sum
 
-Возвращает сумму всех переданных значений.
+Returns the sum of all the provided values.
 
-**Параметры:**
+**Parameters:**
 
-- `n` — переменное количество аргументов типа `T`, где `T` — любой числовой тип, поддерживаемый интерфейсом `Numeric`.
+- `n` is a variable number of arguments of type `T`, where `T` is any numeric type supported by the `Numeric` interface.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `T` — сумма всех переданных аргументов.
+- `T` is the sum of all the provided arguments.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 total := math.Sum(1, 2, 3, 4, 5)
@@ -184,35 +183,33 @@ total := math.Sum(1, 2, 3, 4, 5)
 
 ## models
 
-Пакет предоставляющий функции для работы с сущностями (моделями).
+Package providing functions for working with entities (models).
 
-### Основные функции:
+### Main functions:
 
-- **[CollectIDs](#CollectIDs)**: Возвращает срез идентификаторов из среза сущностей.
-- **[CollectIDsFromMap](#CollectIDsFromMap)**: Возвращает срез идентификаторов из карты сущностей.
-- **[UniqueValues](#UniqueValues)**: Метод для сборки уникальных значений из любого поля модели в срез с желаемым типом
-  результата.
-- **[UniqueValuesFromMap](#UniqueValuesFromMap)**: Метод для сборки уникальных значений из любого поля модели в срез с
-  желаемым типом результата, используя карту.
+- **[CollectIDs](#CollectIDs)**: Returns a slice of identifiers from a slice of entities.
+- **[CollectIDsFromMap](#CollectIDsFromMap)**: Returns a slice of identifiers from a map of entities.
+- **[UniqueValues](#UniqueValues)**: Method for collecting unique values from any field of a model into a slice of the desired result type.
+- **[UniqueValuesFromMap](#UniqueValuesFromMap)**: Method for collecting unique values from any field of a model into a slice of the desired result type, using a map.
 
-#### CollectIDs
+### CollectIDs
 
-Возвращает срез идентификаторов из среза сущностей`.
+Returns a slice of identifiers from a slice of entities.
 
-**Параметры:**
+**Parameters:**
 
-- `sl` — срез сущностей типа `T`, которые имеют id.
+- `sl` is a slice of entities of type `T`, which have an id.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]uint` — срез уникальных идентификаторов.
+- `[]uint` is a slice of unique identifiers.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 type User struct {
     ID uint 
-	// другие поля
+	// other fields
 }
 
 func (u User) GetID() uint {
@@ -224,24 +221,24 @@ ids := CollectIDs(users)
 // ids: []uint{1, 2}
 ```
 
-#### CollectIDsFromMap
+### CollectIDsFromMap
 
-Возвращает срез идентификаторов из карты сущностей, которые имеют id.
+Returns a slice of identifiers from a map of entities that have an id.
 
-**Параметры:**
+**Parameters:**
 
-- `m` — карта, где ключи имеют тип `K`, а значения типа `T`, которые имеют id.
+- `m` is a map where the keys are of type `K`, and the values are of type `T`, which have an id.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]uint` — срез уникальных идентификаторов.
+- `[]uint` is a slice of unique identifiers.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 type User struct {
-ID uint
-// другие поля
+    ID uint
+    // other fields
 }
 
 func (u User) GetID() uint {
@@ -258,26 +255,25 @@ ids := CollectIDsFromMap(userMap)
 // ids: []uint{1, 2}
 ```
 
-#### UniqueValues
+### UniqueValues
 
-Метод для сборки уникальных значений из любого поля модели в срез с желаемым типом результата.
+Method for collecting unique values from any field of a model into a slice of the desired result type.
 
-**Параметры:**
+**Parameters:**
 
-- `slice` — срез сущностей типа `S`.
-- `getter` — функция, принимающая сущность типа `S` и возвращающая значение типа `R`, которое будет добавлено в итоговый
-  срез.
+- `slice` is a slice of entities of type `S`.
+- `getter` is a function that takes an entity of type `S` and returns a value of type `R`, which will be added to the final slice.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]R` — срез уникальных значений, полученных из переданного среза.
+- `[]R` is a slice of unique values obtained from the provided slice.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 type Product struct {
-ID   uint
-Name string
+    ID   uint
+    Name string
 }
 
 func GetProductID(p Product) uint {
@@ -294,21 +290,20 @@ uniqueIDs := UniqueValues(products, GetProductID)
 // uniqueIDs: []uint{1, 2}
 ```
 
-#### UniqueValuesFromMap
+### UniqueValuesFromMap
 
-Метод для сборки уникальных значений из любого поля модели в срез с желаемым типом результата, используя карту.
+Method for collecting unique values from any field of a model into a slice of the desired result type, using a map.
 
-**Параметры:**
+**Parameters:**
 
-- `m` — карта, где ключи имеют тип `K`, а значения имеют тип `V`.
-- `getter` — функция, принимающая значение типа `V` и возвращающая значение типа `R`, которое будет добавлено в итоговый
-  срез.
+- `m` is a map where the keys are of type `K`, and the values are of type `V`.
+- `getter` is a function that takes a value of type `V` and returns a value of type `R`, which will be added to the final slice.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]R` — срез уникальных значений, полученных из переданной карты.
+- `[]R` is a slice of unique values obtained from the provided map.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 type User struct {
@@ -332,26 +327,25 @@ uniqueNames := UniqueValuesFromMap(users, GetUserName)
 
 ## other
 
-Пакет, который содержит вспомогательные функции для работы с различными типами данных.
+Package that contains utility functions for working with various data types.
 
-### Основные функции:
+### Main functions:
 
-- **[FirstNonEmpty](#FirstNonEmpty)**: Возвращает первый элемент с ненулевым значением из переданных аргументов.
+- **[FirstNonEmpty](#FirstNonEmpty)**: Returns the first element with a non-zero value from the provided arguments.
 
-#### FirstNonEmpty
+### FirstNonEmpty
 
-Возвращает первый элемент с ненулевым значением из переданных аргументов.
+Returns the first element with a non-zero value from the provided arguments.
 
-**Параметры:**
+**Parameters:**
 
-- `tt` — переменное количество аргументов типа `T`, где `T` — любой тип, поддерживающий сравнение.
+- `tt` is a variable number of arguments of type `T`, where `T` is any type that supports comparison.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `T` — первый ненулевой элемент из переданных аргументов. Если все элементы равны нулю, возвращает значение по
-  умолчанию для типа `T`.
+- `T` is the first non-zero element from the provided arguments. If all elements are zero, it returns the default value for type `T`.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 first := other.FirstNonEmpty("", "hello", "world")
@@ -366,41 +360,38 @@ firstNil := other.FirstNonEmpty(nil, nil)
 
 ## slices
 
-Пакет предоставляющий функции для работы со срезами (slice).
+Package providing functions for working with slices.
 
-### Основные функции:
+### Main functions:
 
-- **[ConvertSlice](#ConvertSlice)**: изменяет тип элементов в срезе.
-- **[FilterNil](#FilterNil)**: возвращает срез без пустых значений (например, 0, "", и т.д.), модифицируя оригинальный
-  срез.
-- **[Unique](#Unique)**: возвращает срез без дубликатов, модифицируя оригинальный срез.
-- **[Union](#Union)**: объединяет два среза, исключая дубликаты.
-- **[Cross](#Cross)**: возвращает срез со значениями, присутствующими в обоих срезах.
-- **[IsEqual](#IsEqual)**: проверяет, идентичны ли срезы, независимо от порядка элементов.
-- **[Has](#Has)**: проверяет, содержит ли срез данное значение.
-- **[TrimStrings](#TrimStrings)**: удаляет пробелы из каждого элемента строкового среза.
-- **[ToKeyMap](#ToKeyMap)**: возвращает карту с ключами, равными значениям среза.
-- **[SliceDiff](#SliceDiff)**: возвращает срез, содержащий элементы, присутствующие в первом срезе, но отсутствующие в
-  остальных.
-- **[SliceIntersect](#SliceIntersect)**: возвращает срез с уникальными значениями, присутствующими во всех переданных
-  срезах.
-- **[Max](#Max)**: возвращает максимальное значение из представленных элементов.
-- **[Min](#Min)**: возвращает минимальное значение из представленных элементов.
-- **[Sum](#Sum)**: возвращает сумму всех значений.
+- **[ConvertSlice](#ConvertSlice)**: changes the type of elements in the slice.
+- **[FilterNil](#FilterNil)**: returns a slice without empty values (e.g., 0, "", etc.), modifying the original slice.
+- **[Unique](#Unique)**: returns a slice without duplicates, modifying the original slice.
+- **[Union](#Union)**: combines two slices, excluding duplicates.
+- **[Cross](#Cross)**: returns a slice with values present in both slices.
+- **[IsEqual](#IsEqual)**: checks if the slices are identical, regardless of the order of elements.
+- **[Has](#Has)**: checks if the slice contains a given value.
+- **[TrimStrings](#TrimStrings)**: removes spaces from each element of a string slice.
+- **[ToKeyMap](#ToKeyMap)**: returns a map with keys equal to the values of the slice.
+- **[SliceDiff](#SliceDiff)**: returns a slice containing elements present in the first slice but absent in others.
+- **[SliceIntersect](#SliceIntersect)**: returns a slice with unique values present in all provided slices.
+- **[Max](#Max)**: returns the maximum value from the provided elements.
+- **[Min](#Min)**: returns the minimum value from the provided elements.
+- **[Sum](#Sum)**: returns the sum of all values.
 
 ### ConvertSlice
 
-Функция, которая изменяет тип элементов в срезе.
+Function that changes the type of elements in a slice.
 
-**Параметры:**
+**Parameters:**
 
-- `s` — срез элементов типа `T`, который необходимо преобразовать.
+- `s` is a slice of elements of type `T` that needs to be converted.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]R` — новый срез элементов типа `R`, полученный путем преобразования элементов из среза `s`.
+- `[]R` is a new slice of elements of type `R`, obtained by converting the elements from the slice `s`.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 newSlice := slices.ConvertSlice[int32, uint]([]int32{1, 2, 3})
@@ -409,18 +400,17 @@ newSlice := slices.ConvertSlice[int32, uint]([]int32{1, 2, 3})
 
 ### FilterNil
 
-Функция, которая возвращает срез без пустых значений (например, `0`, `""` и т. д.). Обратите внимание, что
-она модифицирует оригинальный срез.
+Function that returns a slice without empty values (e.g., `0`, `""`, etc.). Note that it modifies the original slice.
 
-**Параметры:**
+**Parameters:**
 
-- `sl` — срез элементов типа `T`, из которого будут удалены пустые значения.
+- `sl` is a slice of elements of type `T` from which empty values will be removed.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]T` — срез, содержащий только непустые значения.
+- `[]T` is a slice containing only non-empty values.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 values := []int{0, 1, 2, 0, 3}
@@ -430,17 +420,17 @@ filtered := slices.FilterNil(values)
 
 ### Unique
 
-Функция, которая возвращает срез без дубликатов. Обратите внимание, что она модифицирует оригинальный срез.
+Function that returns a slice without duplicates. Note that it modifies the original slice.
 
-**Параметры:**
+**Parameters:**
 
-- `sl` — срез элементов типа `T`, из которого будут удалены дубликаты.
+- `sl` is a slice of elements of type `T` from which duplicates will be removed.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]T` — срез, содержащий только уникальные значения.
+- `[]T` is a slice containing only unique values.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 values := []int{1, 2, 2, 3, 4, 4}
@@ -450,18 +440,18 @@ uniqueValues := slices.Unique(values)
 
 ### Union
 
-Функция, которая объединяет два среза, исключая дубликаты.
+Function that combines two slices, excluding duplicates.
 
-**Параметры:**
+**Parameters:**
 
-- `sl1` — первый срез типа `T`.
-- `sl2` — второй срез типа `T`.
+- `sl1` is the first slice of type `T`.
+- `sl2` is the second slice of type `T`.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]T` — новый срез, содержащий уникальные значения из обоих входных срезов.
+- `[]T` is a new slice containing unique values from both input slices.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 slice1 := []int{1, 2, 3}
@@ -472,18 +462,18 @@ result := slices.Union(slice1, slice2)
 
 ### Cross
 
-Функция, которая возвращает срез значений, присутствующих в обоих входных срезах.
+Function that returns a slice of values present in both input slices.
 
-**Параметры:**
+**Parameters:**
 
-- `sl1` — первый срез типа `T`.
-- `sl2` — второй срез типа `T`.
+- `sl1` is the first slice of type `T`.
+- `sl2` is the second slice of type `T`.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]T` — новый срез, содержащий значения, которые присутствуют в обоих входных срезах.
+- `[]T` is a new slice containing values that are present in both input slices.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 slice1 := []int{1, 2, 3}
@@ -494,18 +484,18 @@ result := slices.Cross(slice1, slice2)
 
 ### IsEqual
 
-Функция, которая проверяет, идентичны ли два среза, независимо от порядка элементов.
+Function that checks whether two slices are identical, regardless of the order of elements.
 
-**Параметры:**
+**Parameters:**
 
-- `sl1` — первый срез типа `T`.
-- `sl2` — второй срез типа `T`.
+- `sl1` is the first slice of type `T`.
+- `sl2` is the second slice of type `T`.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `bool` — `true`, если срезы идентичны (содержат одинаковые элементы в любом порядке), иначе `false`.
+- `bool` — `true` if the slices are identical (contain the same elements in any order), otherwise `false`.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 slice1 := []int{1, 2, 3}
@@ -516,18 +506,18 @@ isEqual := slices.IsEqual(slice1, slice2)
 
 ### Has
 
-Функция, которая проверяет, содержит ли срез заданное значение.
+Function that checks whether a slice contains a specified value.
 
-**Параметры:**
+**Parameters:**
 
-- `sl` — срез типа `T`, в котором выполняется поиск.
-- `n` — значение типа `T`, которое необходимо найти в срезе.
+- `sl` is a slice of type `T` in which to search.
+- `n` is a value of type `T` that needs to be found in the slice.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `bool` — `true`, если значение присутствует в срезе, иначе `false`.
+- `bool` — `true` if the value is present in the slice, otherwise `false`.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 slice := []string{"apple", "banana", "cherry"}
@@ -537,17 +527,17 @@ exists := slices.Has(slice, "banana")
 
 ### TrimStrings
 
-Функция, которая обрезает пробелы в начале и конце каждой строки в срезе строк.
+Function that trims whitespace from the beginning and end of each string in a slice of strings.
 
-**Параметры:**
+**Parameters:**
 
-- `ss` — срез строк, который нужно обработать.
+- `ss` is a slice of strings to be processed.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]string` — срез строк, где каждая строка обрезана от пробелов.
+- `[]string` — a slice of strings where each string is trimmed of whitespace.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 strings := []string{"  apple  ", " banana ", "cherry  "}
@@ -557,18 +547,17 @@ trimmed := slices.TrimStrings(strings)
 
 ### ToKeyMap
 
-Функция, которая преобразует срез значений в карту, где ключами являются элементы среза, а значениями —
-булевый тип, указывающий на наличие этих ключей.
+Function that converts a slice of values into a map where the keys are the elements of the slice and the values are boolean indicating the presence of these keys.
 
-**Параметры:**
+**Parameters:**
 
-- `sl` — срез значений типа `T`, который будет преобразован в карту.
+- `sl` is a slice of values of type `T` to be converted into a map.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `map[T]bool` — карта, где ключами являются элементы из среза, а значениями — `true`.
+- `map[T]bool` — a map where the keys are the elements from the slice and the values are `true`.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 values := []string{"apple", "banana", "cherry"}
@@ -578,18 +567,17 @@ keyMap := slices.ToKeyMap(values)
 
 ### SliceDiff
 
-Функция, которая возвращает срез, содержащий элементы, присутствующие в первом срезе, но отсутствующие в
-других переданных срезах.
+Function that returns a slice containing elements that are present in the first slice but absent in the other provided slices.
 
-**Параметры:**
+**Parameters:**
 
-- `slices` — переменное количество срезов типа `T`, из которых будет вычислено различие.
+- `slices` is a variable number of slices of type `T` from which the difference will be calculated.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]T` — срез, содержащий элементы из первого среза, которых нет в остальных.
+- `[]T` — a slice containing elements from the first slice that are not in the others.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 slice1 := []int{1, 2, 3, 4}
@@ -602,18 +590,17 @@ result := slices.SliceDiff(slice1, slice2, slice3)
 
 ### SliceIntersect
 
-Функция, которая возвращает срез с уникальными значениями, присутствующими в обоих (или всех)
-переданных срезах.
+Function that returns a slice of unique values present in all provided slices.
 
-**Параметры:**
+**Parameters:**
 
-- `slices` — переменное количество срезов типа `T`, из которых будет вычислено пересечение.
+- `slices` is a variable number of slices of type `T` from which the intersection will be calculated.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `[]T` — срез, содержащий уникальные элементы, которые присутствуют во всех переданных срезах.
+- `[]T` — a slice containing unique elements that are present in all of the provided slices.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 slice1 := []int{1, 2, 3, 4}
@@ -626,17 +613,17 @@ result := slices.SliceIntersect(slice1, slice2, slice3)
 
 ### Max
 
-Функция, которая возвращает максимальное значение из переданных аргументов.
+Function that returns the maximum value from the provided arguments.
 
-**Параметры:**
+**Parameters:**
 
-- `n` — переменное количество аргументов типа `T`, где `T` — любой числовой тип, поддерживаемый интерфейсом `Numeric`.
+- `n` is a variable number of arguments of type `T`, where `T` is any numeric type supported by the `Numeric` interface.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `T` — максимальное значение из переданных аргументов.
+- `T` — the maximum value from the provided arguments.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 maxValue := slices.Max([]int{1, 2, 3, 4, 5})
@@ -645,17 +632,17 @@ maxValue := slices.Max([]int{1, 2, 3, 4, 5})
 
 ### Min
 
-Функция, которая возвращает минимальное значение из переданных аргументов.
+Function that returns the minimum value from the provided arguments.
 
-**Параметры:**
+**Parameters:**
 
-- `n` — переменное количество аргументов типа `T`, где `T` — любой числовой тип, поддерживаемый интерфейсом `Numeric`.
+- `n` is a variable number of arguments of type `T`, where `T` is any numeric type supported by the `Numeric` interface.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `T` — минимальное значение из переданных аргументов.
+- `T` — the minimum value from the provided arguments.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 minValue := slices.Min([]int{1, 2, 3, 4, 5})
@@ -664,17 +651,17 @@ minValue := slices.Min([]int{1, 2, 3, 4, 5})
 
 ### Sum
 
-Функция, которая возвращает сумму всех переданных значений.
+Function that returns the sum of all provided values.
 
-**Параметры:**
+**Parameters:**
 
-- `n` — переменное количество аргументов типа `T`, где `T` — любой числовой тип, поддерживаемый интерфейсом `Numeric`.
+- `n` is a variable number of arguments of type `T`, where `T` is any numeric type supported by the `Numeric` interface.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `T` — сумма всех переданных аргументов.
+- `T` — the sum of all provided arguments.
 
-**Пример использования:**
+**Usage example:**
 
 ```go
 total := slices.Sum([]int{1, 2, 3, 4, 5})
@@ -683,26 +670,26 @@ total := slices.Sum([]int{1, 2, 3, 4, 5})
 
 # strings
 
-Пакет, предоставляющий функции для работы со строками.
+Package providing functions for working with strings.
 
-### Основные функции:
+### Main functions:
 
-- **[Truncate](#Truncate)**: Усечет строку до заданного количества рун.
+- **[Truncate](#Truncate)**: Truncates a string to the specified number of runes.
 
 #### Truncate
 
-Усечет строку до заданного количества рун.
+Truncates a string to the specified number of runes.
 
-**Параметры:**
+**Parameters:**
 
-- `str` — строка, которую необходимо усечь.
-- `maxRunes` — максимальное количество рун, до которого строка будет усечена.
+- `str` — the string to be truncated.
+- `maxRunes` — the maximum number of runes to truncate the string to.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `string` — усеченная строка, если длина превышает `maxRunes`, иначе оригинальная строка.
+- `string` — the truncated string if the length exceeds `maxRunes`, otherwise the original string.
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 result := strings.Truncate("Hello, World!", 5)
@@ -711,82 +698,80 @@ result := strings.Truncate("Hello, World!", 5)
 
 ## time
 
-Пакет, предоставляющий функции для работы с временными значениями.
+Package providing functions for working with time values.
 
-### Основные функции:
+### Main functions:
 
-- **[Midnight](#Midnight)**: Возвращает время, соответствующее полуночи для текущей даты в локальном часовом поясе.
-- **[MidnightByLocation](#MidnightByLocation)**: Возвращает время полуночи для указанного часового пояса.
-- **[MidnightByTimeZone](#MidnightByTimeZone)**: Возвращает время полуночи для указанного часового пояса.
+- **[Midnight](#Midnight)**: Returns the time corresponding to midnight for the current date in the local time zone.
+- **[MidnightByLocation](#MidnightByLocation)**: Returns midnight time for the specified location.
+- **[MidnightByTimeZone](#MidnightByTimeZone)**: Returns midnight time for the specified time zone.
 
-#### Midnight
+### Midnight
 
-Возвращает время, соответствующее полуночи для текущей даты в локальном часовом поясе.
+Returns the time corresponding to midnight for the current date in the local time zone.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `time.Time` — значение времени, соответствующее полуночи.
-- `error` — ошибка, если произошла проблема с вычислением времени (обычно не возникает).
+- `time.Time` — the time value corresponding to midnight.
+- `error` — an error if there was a problem calculating the time (usually does not occur).
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 midnight, err := time.Midnight()
 if err != nil {
-// Обработка ошибки
+    // error handling
 }
 // midnight: 2024-09-20 00:00:00 +0000 UTC
 ```
 
-#### MidnightByLocation
+### MidnightByLocation
 
-Возвращает время полуночи для указанного часового пояса.
+Returns the midnight time for the specified location.
 
-**Параметры:**
+**Parameters:**
 
-- `loc` — указатель на структуру `time.Location`, представляющую часовой пояс.
+- `loc` — a pointer to a `time.Location` structure representing the time zone.
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `time.Time` — значение времени, соответствующее полуночи в указанном часовом поясе.
-- `error` — ошибка, если произошла проблема с вычислением времени (обычно не возникает).
+- `time.Time` — the time value corresponding to midnight in the specified time zone.
+- `error` — an error if there was a problem calculating the time (usually does not occur).
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 loc, err := time.LoadLocation("Europe/Moscow")
 if err != nil {
-    // Обработка ошибки
+    // error handling
 }
 
 midnight, err := time.MidnightByLocation(loc)
 if err != nil {
-    // Обработка ошибки
+    // error handling
 }
 // midnight: 2024-09-20 00:00:00 +0300 MSK
 ```
 
-#### MidnightByTimeZone
+### MidnightByTimeZone
 
-Возвращает время полуночи для указанного часового пояса.
+Returns the midnight time for the specified time zone.
 
-**Параметры:**
+**Parameters:**
 
-- `timeZone` — строка, представляющая название часового пояса (например, "Europe/Moscow").
+- `timeZone` — a string representing the name of the time zone (e.g., "Europe/Moscow").
 
-**Возвращаемое значение:**
+**Return value:**
 
-- `time.Time` — значение времени, соответствующее полуночи в указанном часовом поясе.
-- `error` — ошибка, если произошла проблема с загрузкой часового пояса (например, если указанный часовой пояс не
-  существует).
+- `time.Time` — the time value corresponding to midnight in the specified time zone.
+- `error` — an error if there was a problem loading the time zone (e.g., if the specified time zone does not exist).
 
-##### Пример использования:
+**Usage example:**
 
 ```go
 midnight, err := time.MidnightByTimeZone("Europe/Moscow")
 if err != nil {
-    // Обработка ошибки
+    // error handling
 }
 // midnight: 2024-09-20 00:00:00 +0300 MSK
 ```
-

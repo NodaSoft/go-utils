@@ -6,8 +6,8 @@ import (
 	"github.com/nodasoft/go-utils/generics"
 )
 
-// ConvertSlice change type of slice elements
-// example: newSlice := slices.ConvertSlice[int32, uint]([]int32{1,2,3})
+// ConvertSlice changes the type of slice elements.
+// Example: newSlice := slices.ConvertSlice[int32, uint]([]int32{1,2,3})
 func ConvertSlice[T, R generics.Numeric](s []T) []R {
 	r := make([]R, 0, len(s))
 	for _, i := range s {
@@ -17,8 +17,8 @@ func ConvertSlice[T, R generics.Numeric](s []T) []R {
 	return r
 }
 
-// FilterNil return slice without empty values - 0, "", etc.
-// be careful - modifies original slice
+// FilterNil returns a slice without empty values - 0, "", etc.
+// Be careful - modifies the original slice.
 func FilterNil[T comparable](sl []T) []T {
 	if len(sl) == 0 {
 		return sl
@@ -37,8 +37,8 @@ func FilterNil[T comparable](sl []T) []T {
 	return sl[:newSize]
 }
 
-// Unique return slice without duplicates
-// be careful - modifies original slice
+// Unique returns a slice without duplicates.
+// Be careful - modifies the original slice.
 func Unique[T comparable](sl []T) []T {
 	if len(sl) == 0 {
 		return nil
@@ -58,7 +58,7 @@ func Unique[T comparable](sl []T) []T {
 	return sl[:newSize]
 }
 
-// Union two slices exclude duplicates.
+// Union merges two slices, excluding duplicates.
 func Union[T comparable](sl1, sl2 []T) []T {
 	uintsMap := make(map[T]struct{})
 
@@ -79,7 +79,7 @@ func Union[T comparable](sl1, sl2 []T) []T {
 	return result
 }
 
-// Cross returns a slice with values present in both slices
+// Cross returns a slice with values present in both slices.
 func Cross[T comparable](sl1, sl2 []T) []T {
 	if len(sl1) == 0 || len(sl2) == 0 {
 		return nil
@@ -98,7 +98,7 @@ func Cross[T comparable](sl1, sl2 []T) []T {
 	return res
 }
 
-// IsEqual checks that slices are identical regardless of the order of elements
+// IsEqual checks if slices are identical regardless of the order of elements.
 func IsEqual[T comparable](sl1, sl2 []T) bool {
 	if len(sl1) != len(sl2) {
 		return false
@@ -121,7 +121,7 @@ func IsEqual[T comparable](sl1, sl2 []T) bool {
 	return true
 }
 
-// Has checks that the slice contains the given value
+// Has checks if the slice contains the given value.
 func Has[T comparable](sl []T, n T) bool {
 	for _, v := range sl {
 		if v == n {
@@ -132,7 +132,7 @@ func Has[T comparable](sl []T, n T) bool {
 	return false
 }
 
-// TrimStrings trim every string in slice
+// TrimStrings trims every string in a slice.
 func TrimStrings(ss []string) []string {
 	for i := range ss {
 		ss[i] = strings.TrimSpace(ss[i])
@@ -141,7 +141,7 @@ func TrimStrings(ss []string) []string {
 	return ss
 }
 
-// ToKeyMap return map with key eq values of slice
+// ToKeyMap returns a map where the slice values are the keys.
 func ToKeyMap[T comparable](sl []T) map[T]bool {
 	keyMap := make(map[T]bool, len(sl))
 
@@ -152,7 +152,7 @@ func ToKeyMap[T comparable](sl []T) map[T]bool {
 	return keyMap
 }
 
-// SliceDiff returns a slice that contains elements present in the first slice but absent from the others
+// SliceDiff returns a slice that contains elements present in the first slice but absent in the others.
 func SliceDiff[T comparable](slices ...[]T) []T {
 	if len(slices) == 1 {
 		return slices[0]
@@ -178,14 +178,14 @@ func SliceDiff[T comparable](slices ...[]T) []T {
 	return Unique(res)
 }
 
-// SliceIntersect returns a slice with unique values present in both slices
+// SliceIntersect returns a slice with unique values present in all provided slices.
 func SliceIntersect[T comparable](slices ...[]T) []T {
 	tmpValuesMap := make(map[int]map[T]struct{}, len(slices))
 
 	for i := 0; i < len(slices); i++ {
 		sl := slices[i]
 		if len(sl) == 0 {
-			return make([]T, 0) // попался пустой слайс - дальнейшая обработка бессмысленна
+			return make([]T, 0) // empty slice encountered - further processing is pointless
 		}
 
 		tmpValuesMap[i] = make(map[T]struct{}, len(sl))
@@ -194,11 +194,11 @@ func SliceIntersect[T comparable](slices ...[]T) []T {
 		}
 	}
 
-	result := make([]T, 0, (len(slices[0])+len(slices[1]))/2) // len - middle len of two slices
+	result := make([]T, 0, (len(slices[0])+len(slices[1]))/2) // len - middle length of two slices
 
-	// range all slices
+	// iterate over all slices
 	for _, sl := range slices {
-		// range all elements
+		// iterate over all elements
 		for _, el := range sl {
 			existInAll := true
 			for _, mm := range tmpValuesMap {
@@ -217,7 +217,7 @@ func SliceIntersect[T comparable](slices ...[]T) []T {
 	return Unique(result)
 }
 
-// Max return maximum value from presented
+// Max returns the maximum value from the provided values.
 func Max[T generics.Numeric](n []T) T {
 	m := n[0]
 	for i := 1; i < len(n); i++ {
@@ -229,7 +229,7 @@ func Max[T generics.Numeric](n []T) T {
 	return m
 }
 
-// Min return minimal value from presented
+// Min returns the minimum value from the provided values.
 func Min[T generics.Numeric](n []T) T {
 	m := n[0]
 	for i := 1; i < len(n); i++ {
@@ -241,7 +241,7 @@ func Min[T generics.Numeric](n []T) T {
 	return m
 }
 
-// Sum return sum of all values
+// Sum returns the sum of all provided values.
 func Sum[T generics.Numeric](n []T) T {
 	var sum T
 	for _, v := range n {

@@ -1,8 +1,8 @@
 package maps
 
 // Has checks if the map contains the given key.
-func Has[K comparable, V any](m map[K]V, n K) bool {
-	_, ok := m[n]
+func Has[K comparable, V any](m map[K]V, key K) bool {
+	_, ok := m[key]
 
 	return ok
 }
@@ -21,7 +21,7 @@ func Merge[K comparable, V any](a map[K]V, b map[K]V) map[K]V {
 	return result
 }
 
-// DiffKeys return map "a" without elements from map "b"
+// DiffKeys return map "a" without elements from map "b".
 func DiffKeys[K comparable, V any](a map[K]V, b map[K]V) map[K]V {
 	result := make(map[K]V, len(a))
 

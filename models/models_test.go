@@ -45,7 +45,7 @@ func TestUniqueValues(t *testing.T) {
 	sl := []*testModel[string]{
 		{id: 1, property: "value1"},
 		{id: 2, property: "value2"},
-		{id: 3, property: "value1"}, // Дубликат
+		{id: 3, property: "value1"}, // duplicate
 	}
 
 	properties := UniqueValues(sl, func(m *testModel[string]) string {
@@ -59,7 +59,7 @@ func TestUniqueValuesFromMap(t *testing.T) {
 	m := map[string]*testModel[string]{
 		"instance1": {id: 1, property: "value1"},
 		"instance2": {id: 2, property: "value2"},
-		"instance3": {id: 3, property: "value1"}, // Дубликат
+		"instance3": {id: 3, property: "value1"}, // duplicate
 	}
 
 	properties := UniqueValuesFromMap(m, func(m *testModel[string]) string {
@@ -98,7 +98,7 @@ func BenchmarkUniqueValues(b *testing.B) {
 	for i := 0; i < 1000; i++ {
 		sl[i] = &testModel[string]{id: uint(i), property: fmt.Sprintf("value%d", i)}
 		if i%10 == 0 {
-			sl[i].property = "duplicateValue" // Создание дубликата
+			sl[i].property = "duplicateValue" // creating duplicate
 		}
 	}
 
@@ -115,7 +115,7 @@ func BenchmarkUniqueValuesFromMap(b *testing.B) {
 	for i := 0; i < 1000; i++ {
 		m[strconv.Itoa(i)] = &testModel[string]{id: uint(i), property: fmt.Sprintf("value%d", i)}
 		if i%10 == 0 {
-			m[strconv.Itoa(i)].property = "duplicateValue" // Создание дубликата
+			m[strconv.Itoa(i)].property = "duplicateValue" // creating duplicate
 		}
 	}
 
