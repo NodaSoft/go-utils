@@ -69,6 +69,63 @@ func TestUniqueValuesFromMap(t *testing.T) {
 	assert.ElementsMatch(t, expected, properties)
 }
 
+func TestEntityDiff(t *testing.T) {
+	a := []*testModel[string]{
+		{id: 1, property: "value1"},
+		{id: 2, property: "value2"},
+		{id: 3, property: "value3"},
+	}
+
+	b := []*testModel[string]{
+		{id: 2, property: "value2"},
+	}
+
+	expected := []*testModel[string]{
+		{id: 1, property: "value1"},
+		{id: 3, property: "value3"},
+	}
+
+	diff := EntityDiff(a, b)
+	assert.ElementsMatch(t, expected, diff)
+}
+
+func TestEntityDiff_NoDiff(t *testing.T) {
+	a := []*testModel[string]{
+		{id: 1, property: "value1"},
+		{id: 2, property: "value2"},
+	}
+
+	b := []*testModel[string]{
+		{id: 1, property: "value1"},
+		{id: 2, property: "value2"},
+	}
+
+	diff := EntityDiff(a, b)
+	assert.Empty(t, diff)
+}
+
+func TestEntityDiff_EmptySecondSlice(t *testing.T) {
+	a := []*testModel[string]{
+		{id: 1, property: "value1"},
+		{id: 2, property: "value2"},
+	}
+
+	var b []*testModel[string]
+
+	diff := EntityDiff(a, b)
+	assert.ElementsMatch(t, a, diff)
+}
+
+func TestEntityDiff_EmptyFirstSlice(t *testing.T) {
+	var a []*testModel[string]
+	b := []*testModel[string]{
+		{id: 1, property: "value1"},
+	}
+
+	diff := EntityDiff(a, b)
+	assert.Empty(t, diff)
+}
+
 func BenchmarkCollectIDs(b *testing.B) {
 	sl := make([]*testModel[struct{}], 0, 1000)
 	for i := 0; i < 1000; i++ {
@@ -124,5 +181,22 @@ func BenchmarkUniqueValuesFromMap(b *testing.B) {
 		UniqueValuesFromMap(m, func(m *testModel[string]) string {
 			return m.GetProperty()
 		})
+	}
+}
+
+func BenchmarkEntityDiff(b *testing.B) {
+	a := make([]*testModel[struct{}], 1000)
+	bSlice := make([]*testModel[struct{}], 500)
+
+	for i := 0; i < 1000; i++ {
+		a[i] = &testModel[struct{}]{id: uint(i)}
+		if i < 500 {
+			bSlice[i] = &testModel[struct{}]{id: uint(i)}
+		}
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		EntityDiff(a, bSlice)
 	}
 }
