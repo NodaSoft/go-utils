@@ -39,3 +39,28 @@ func UniqueValuesFromMap[K comparable, V any, R comparable](m map[K]V, getter fu
 
 	return slices.Unique(values)
 }
+
+// EntityDiff returns a slice that contains elements present in the first slice but absent in the others. Works for entities with ID.
+func EntityDiff[T HasID](slices ...[]T) []T {
+	if len(slices) == 1 {
+		return slices[0]
+	}
+
+	mainSlice := slices[0]
+
+	exclude := make(map[uint]struct{})
+	for i := 1; i < len(slices); i++ {
+		for _, entity := range slices[i] {
+			exclude[entity.GetID()] = struct{}{}
+		}
+	}
+
+	result := make([]T, 0, len(mainSlice))
+	for _, entity := range mainSlice {
+		if _, ok := exclude[entity.GetID()]; !ok {
+			result = append(result, entity)
+		}
+	}
+
+	return result
+}
