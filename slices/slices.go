@@ -1,6 +1,7 @@
 package slices
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/nodasoft/go-utils/generics"
@@ -249,4 +250,28 @@ func Sum[T generics.Numeric](n []T) T {
 	}
 
 	return sum
+}
+
+type iUints interface {
+	uint | uint8 | uint16 | uint32 | uint64
+}
+
+// StringsToUints convert slice of strings to slice of specified uint type
+func StringsToUints[T iUints](ss []string) ([]T, error) {
+	uints := make([]T, 0, len(ss))
+
+	for _, s := range ss {
+		if s == "" {
+			continue
+		}
+
+		v, err := strconv.ParseUint(s, 10, 64)
+		if err != nil {
+			return nil, err
+		}
+
+		uints = append(uints, T(v))
+	}
+
+	return uints, nil
 }
