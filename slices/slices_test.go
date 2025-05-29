@@ -169,3 +169,25 @@ func BenchmarkSum(b *testing.B) {
 		Sum([]int{1, -2, 3, 15, 28, 4})
 	}
 }
+
+func TestStringsToType(t *testing.T) {
+	// uint
+	stringsUint := []string{"0", "1", "3", "15", "2006"}
+	expectedUints := []uint{0, 1, 3, 15, 2006}
+	uints, err := StringsToUints[uint](stringsUint)
+	assert.NoError(t, err)
+	assert.Equal(t, expectedUints, uints)
+
+	// uint16
+	stringsUint16 := []string{"0", "1", "3", "15", "2006"}
+	expectedUint16s := []uint16{0, 1, 3, 15, 2006}
+
+	uint16s, err := StringsToUints[uint16](stringsUint16)
+	assert.NoError(t, err)
+	assert.Equal(t, expectedUint16s, uint16s)
+
+	// error
+	stringsWithNegative := []string{"0", "-1", "3", "-15", "2006"}
+	_, err = StringsToUints[uint16](stringsWithNegative)
+	assert.NotNil(t, err)
+}
