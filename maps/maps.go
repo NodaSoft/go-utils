@@ -33,3 +33,16 @@ func DiffKeys[K comparable, V any](a map[K]V, b map[K]V) map[K]V {
 
 	return result
 }
+
+// FilterByKeys returns a new map containing only elements with keys present in the keys slice.
+func FilterByKeys[K comparable, V any](m map[K]V, keys []K) map[K]V {
+	result := make(map[K]V, len(keys))
+
+	for _, key := range keys {
+		if v, ok := m[key]; ok {
+			result[key] = v
+		}
+	}
+
+	return result
+}
