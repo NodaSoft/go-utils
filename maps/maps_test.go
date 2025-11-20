@@ -121,3 +121,43 @@ func BenchmarkDiffKeys(b *testing.B) {
 		DiffKeys(a, bm)
 	}
 }
+
+func TestFilterByKeys(t *testing.T) {
+	m := map[int]string{1: "one", 2: "two", 3: "three", 4: "four", 5: "five"}
+
+	keys := []int{1, 3, 5}
+	expected := map[int]string{1: "one", 3: "three", 5: "five"}
+	result := FilterByKeys(m, keys)
+	assert.Equal(t, expected, result)
+
+	keys = []int{2, 4}
+	expected = map[int]string{2: "two", 4: "four"}
+	result = FilterByKeys(m, keys)
+	assert.Equal(t, expected, result)
+
+	keys = []int{10, 20}
+	expected = map[int]string{}
+	result = FilterByKeys(m, keys)
+	assert.Equal(t, expected, result)
+
+	keys = []int{}
+	expected = map[int]string{}
+	result = FilterByKeys(m, keys)
+	assert.Equal(t, expected, result)
+}
+
+func BenchmarkFilterByKeys(b *testing.B) {
+	m := make(map[int]string, 1000)
+	keys := make([]int, 100)
+	for i := 0; i < 1000; i++ {
+		m[i] = "value"
+		if i < 100 {
+			keys[i] = i
+		}
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		FilterByKeys(m, keys)
+	}
+}
