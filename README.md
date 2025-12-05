@@ -358,6 +358,103 @@ firstNil := other.FirstNonEmpty(nil, nil)
 // firstNil: nil
 ```
 
+### Short
+
+Package that contains short functions for working with various data types.
+
+### Main functions:
+
+- **[If](#If)**: Returns the value of `then` if condition is true, otherwise returns the value of `otherwise`.
+- **[IfFunc](#IfFunc)**: Returns the result of calling `then` if condition is true, otherwise returns the result of calling `otherwise` (lazy evaluation).
+- **[IfFuncE](#IfFuncE)**: Returns the result of calling `then` if condition is true, otherwise returns the result of calling `otherwise` (lazy evaluation with error).
+
+### If
+
+Returns the value of `then` if condition is true, otherwise returns the value of `otherwise`.
+
+**Parameters:**
+
+- `condition` — a boolean value that determines which value to return.
+- `then` — a value of type `T` that will be returned if `condition` is `true`.
+- `otherwise` — a value of type `T` that will be returned if `condition` is `false`.
+
+**Return value:**
+
+- `T` — the value of `then` if `condition` is `true`, otherwise the value of `otherwise`.
+
+**Usage example:**
+
+```go
+result := other.If(true, "yes", "no")
+// result: "yes"
+
+value := other.If(false, 10, 20)
+// value: 20
+```
+
+### IfFunc
+
+Returns the result of calling `then` if condition is true, otherwise returns the result of calling `otherwise` (lazy evaluation). This function allows for lazy evaluation, meaning the functions are only called when needed.
+
+**Parameters:**
+
+- `condition` — a boolean value that determines which function to call.
+- `then` — a function that returns a value of type `T` and will be called if `condition` is `true`.
+- `otherwise` — a function that returns a value of type `T` and will be called if `condition` is `false`.
+
+**Return value:**
+
+- `T` — the result of calling `then()` if `condition` is `true`, otherwise the result of calling `otherwise()`.
+
+**Usage example:**
+
+```go
+result := other.IfFunc(true,
+    func() string { return expensiveOperation() },
+    func() string { return "default" },
+)
+// Only expensiveOperation() will be called
+
+value := other.IfFunc(false,
+    func() int { return 100 },
+    func() int { return 200 },
+)
+// value: 200
+```
+
+### IfFuncE
+
+Returns the result of calling `then` if condition is true, otherwise returns the result of calling `otherwise` (lazy evaluation with error). This function allows for lazy evaluation and error handling.
+
+**Parameters:**
+
+- `condition` — a boolean value that determines which function to call.
+- `then` — a function that returns a value of type `T` and an error, and will be called if `condition` is `true`.
+- `otherwise` — a function that returns a value of type `T` and an error, and will be called if `condition` is `false`.
+
+**Return value:**
+
+- `T` — the result of calling `then()` if `condition` is `true`, otherwise the result of calling `otherwise()`.
+- `error` — an error returned by the called function, or `nil` if no error occurred.
+
+**Usage example:**
+
+```go
+result, err := other.IfFuncE(true,
+    func() (string, error) { return fetchData() },
+    func() (string, error) { return "default", nil },
+)
+if err != nil {
+    // error handling
+}
+
+value, err := other.IfFuncE(false,
+    func() (int, error) { return 100, nil },
+    func() (int, error) { return 0, errors.New("error") },
+)
+// value: 0, err: error
+```
+
 ## slices
 
 Package providing functions for working with slices.
