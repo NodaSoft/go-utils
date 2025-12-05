@@ -332,9 +332,6 @@ Package that contains utility functions for working with various data types.
 ### Main functions:
 
 - **[FirstNonEmpty](#FirstNonEmpty)**: Returns the first element with a non-zero value from the provided arguments.
-- **[If](#If)**: Returns the value of `then` if condition is true, otherwise returns the value of `otherwise`.
-- **[IfFunc](#IfFunc)**: Returns the result of calling `then` if condition is true, otherwise returns the result of calling `otherwise` (lazy evaluation).
-- **[IfFuncE](#IfFuncE)**: Returns the result of calling `then` if condition is true, otherwise returns the result of calling `otherwise` (lazy evaluation with error).
 
 ### FirstNonEmpty
 
@@ -360,6 +357,16 @@ firstNum := other.FirstNonEmpty(0, 1, 2)
 firstNil := other.FirstNonEmpty(nil, nil)
 // firstNil: nil
 ```
+
+### Short
+
+Package that contains short functions for working with various data types.
+
+### Main functions:
+
+- **[If](#If)**: Returns the value of `then` if condition is true, otherwise returns the value of `otherwise`.
+- **[IfFunc](#IfFunc)**: Returns the result of calling `then` if condition is true, otherwise returns the result of calling `otherwise` (lazy evaluation).
+- **[IfFuncE](#IfFuncE)**: Returns the result of calling `then` if condition is true, otherwise returns the result of calling `otherwise` (lazy evaluation with error).
 
 ### If
 
