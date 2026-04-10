@@ -97,8 +97,8 @@ func (m *OrderedMap[K, V]) Set(k K, v V) {
 	m.data[k] = v
 }
 
-// Delete deletes an element by given key if the key exists.
-func (m *OrderedMap[K, V]) Delete(k K) {
+// Delete deletes an element by the given key if the key exists.
+func (m *OrderedMap[K, _]) Delete(k K) {
 	if !m.Has(k) {
 		return
 	}
@@ -140,7 +140,7 @@ func (m *OrderedFastDeleteMap[K, V]) Set(k K, v V) {
 
 // Delete deletes an element by given key if the key exists.
 // Panics if m is not initialized by NewOrderedFastDeleteMap constructor.
-func (m *OrderedFastDeleteMap[K, V]) Delete(k K) {
+func (m *OrderedFastDeleteMap[K, _]) Delete(k K) {
 	if m == nil || !m.Has(k) {
 		return
 	}
