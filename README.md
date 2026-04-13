@@ -47,7 +47,6 @@ A package that provides types and functions for convenient map operations.
 ### Main types:
 
 - **[OrderedMap](#OrderedMap)** - represents a map whose elements are iterated over in the order they are inserted.
-- **[OrderedFastDeleteMap](#OrderedFastDeleteMap)** - like [OrderedMap](#OrderedMap), but deleting is fast.
 
 ### OrderedMap
 
@@ -68,25 +67,6 @@ for fruit, amount := range myMap.Iterate() {
 }
 ```
 
-### OrderedFastDeleteMap
-
-The `OrderedFastDeleteMap[K comparable, V any]` struct type encapsulates a `map[comparable]any` and realizes iteration over its elements in the order they are inserted.
-Unlike [OrderedMap](#OrderedMap) deleting from `OrderedFastDeleteMap` is fast but supporting this require more memory.
-To use a variable of `OrderedFastDeleteMap` type, it is absolutely necessary to create it using the [NewOrderedFastDeleteMap](#NewOrderedFastDeleteMap) constructor.
-
-**Usage example:**
-
-```go
-myMap := maps.NewOrderedFastDeleteMap[string, int](1)
-myMap.Set("apples", 2)
-myMap.Set("bananas", 5)
-myMap.Set("lemon", 1)
-myMap.Delete("bananas")
-for fruit, amount := range myMap.Iterate() {
-	...
-}
-```
-
 ### Main functions:
 
 - **[Has](#Has)**: Checks if a map contains a given key.
@@ -94,13 +74,12 @@ for fruit, amount := range myMap.Iterate() {
 - **[DiffKeys](#DiffKeys)**: Returns map "a" without the elements from map "b".
 - **[FilterByKeys](#FilterByKeys)**: Returns a new map containing only elements with keys are present in the keys slice.
 - **[NewOrderedMap](#NewOrderedMap)**: [OrderedMap](#OrderedMap) type constructor.
-- **[NewOrderedFastDeleteMap](#NewOrderedFastDeleteMap)**: [OrderedFastDeleteMap](#OrderedFastDeleteMap) type constructor.
-- **[OrderedMap.Len](#OrderedMapLen-OrderedFastDeleteMapLen)**: Returns the length of map.
-- **[OrderedMap.Has](#OrderedMapHas-OrderedFastDeleteMapHas)**: Checks if the map contains the given key.
-- **[OrderedMap.GetValue](#OrderedMapGetValue-OrderedFastDeleteMapGetValue)**: Returns a value by the given key.
-- **[OrderedMap.Set](#OrderedMapSet-OrderedFastDeleteMapSet)**: Sets the given key-value pair into the map.
-- **[OrderedMap.Delete](#OrderedMapDelete-OrderedFastDeleteMapDelete)**: Deletes an element by the given key if the key exists.
-- **[OrderedMap.Iterate](#OrderedMapIterate-OrderedFastDeleteMapIterate)**: Iterates over map elements in the order they are inserted.
+- **[OrderedMap.Len](#OrderedMapLen)**: Returns the length of map.
+- **[OrderedMap.Has](#OrderedMapHas)**: Checks if the map contains the given key.
+- **[OrderedMap.GetValue](#OrderedMapGetValue)**: Returns a value by the given key.
+- **[OrderedMap.Set](#OrderedMapSet)**: Sets the given key-value pair into the map.
+- **[OrderedMap.Delete](#OrderedMapDelete)**: Deletes an element by the given key if the key exists.
+- **[OrderedMap.Iterate](#OrderedMapIterate)**: Iterates over map elements in the order they are inserted.
 
 ### Has
 
@@ -213,34 +192,9 @@ it is absolutely necessary to create it using this constructor.
 myMap := maps.NewOrderedMap[string, int](1)
 ```
 
-### NewOrderedFastDeleteMap
-
-Correctly allocates and initializes new variable of [OrderedFastDeleteMap](#OrderedFastDeleteMap) type.
-To use a variable of [OrderedFastDeleteMap](#OrderedFastDeleteMap) type,
-it is absolutely necessary to create it using this constructor.
-
-**Type Parameters:**
-- K comparable
-- V any
-
-**Parameters:**
-
-- `size` — `int`, the initial capacity of the map.
-
-**Return value:**
-
-- `*OrderedFastDeleteMap` — pointer to initialized [OrderedFastDeleteMap](#OrderedFastDeleteMap) type.
-
-**Usage example:**
-
-```go
-myMap := maps.NewOrderedFastDeleteMap[string, int](1)
-```
-
-### OrderedMap.Len, OrderedFastDeleteMap.Len
+### OrderedMap.Len
 
 Returns the length of map "m".
-OrderedFastDeleteMap.Len panics if m is nil, use constructor [NewOrderedFastDeleteMap](#NewOrderedFastDeleteMap) to avoid this.
 
 **Return value:**
 
@@ -249,15 +203,14 @@ OrderedFastDeleteMap.Len panics if m is nil, use constructor [NewOrderedFastDele
 **Usage example:**
 
 ```go
-myMap := maps.NewOrderedFastDeleteMap[string, int](1)
+myMap := maps.NewOrderedMap[string, int](1)
 len := myMap.Len()
 // len: 0
 ```
 
-### OrderedMap.Has, OrderedFastDeleteMap.Has
+### OrderedMap.Has
 
 Checks if the map "m" contains the given key.
-OrderedFastDeleteMap.Has panics if m is nil, use constructor [NewOrderedFastDeleteMap](#NewOrderedFastDeleteMap) to avoid this.
 
 **Return value:**
 
@@ -266,17 +219,16 @@ OrderedFastDeleteMap.Has panics if m is nil, use constructor [NewOrderedFastDele
 **Usage example:**
 
 ```go
-myMap := maps.NewOrderedFastDeleteMap[string, int](1)
+myMap := maps.NewOrderedMap[string, int](1)
 myMap.Set("apples", 2)
 exists := myMap.Has("apples")
 // exists: true
 ```
 
-### OrderedMap.GetValue, OrderedFastDeleteMap.GetValue
+### OrderedMap.GetValue
 
 Returns a value from map "m" by the given key.
 If m is nil or key is not found, returns zero value of map value type.
-OrderedFastDeleteMap.GetValue panics if m is nil, use constructor [NewOrderedFastDeleteMap](#NewOrderedFastDeleteMap) to avoid this.
 
 **Return value:**
 
@@ -285,16 +237,15 @@ OrderedFastDeleteMap.GetValue panics if m is nil, use constructor [NewOrderedFas
 **Usage example:**
 
 ```go
-myMap := maps.NewOrderedFastDeleteMap[string, int](1)
+myMap := maps.NewOrderedMap[string, int](1)
 myMap.Set("apples", 2)
 value := myMap.GetValue("apples")
 // value: 2
 ```
 
-### OrderedMap.GetAndCheck, OrderedFastDeleteMap.GetAndCheck
+### OrderedMap.GetAndCheck
 
 Returns a value by the given key and checks if the map contains the key.
-OrderedFastDeleteMap.GetAndCheck panics if m is nil, use constructor [NewOrderedFastDeleteMap](#NewOrderedFastDeleteMap) to avoid this.
 
 **Return values:**
 
@@ -304,13 +255,13 @@ OrderedFastDeleteMap.GetAndCheck panics if m is nil, use constructor [NewOrdered
 **Usage example:**
 
 ```go
-myMap := maps.NewOrderedFastDeleteMap[string, int](1)
+myMap := maps.NewOrderedMap[string, int](1)
 myMap.Set("apples", 2)
 value, ok := myMap.GetAndCheck("apples")
 // value: 2, ok: true
 ```
 
-### OrderedMap.Set, OrderedFastDeleteMap.Set
+### OrderedMap.Set
 
 Sets the given key-value pair into the map.
 Panics if map is not initialized by constructor.
@@ -318,23 +269,23 @@ Panics if map is not initialized by constructor.
 **Usage example:**
 
 ```go
-myMap := maps.NewOrderedFastDeleteMap[string, int](1)
+myMap := maps.NewOrderedMap[string, int](1)
 myMap.Set("apples", 2)
 ```
 
-### OrderedMap.Delete, OrderedFastDeleteMap.Delete
+### OrderedMap.Delete
 
 Deletes an element by the given key if the key exists.
 
 **Usage example:**
 
 ```go
-myMap := maps.NewOrderedFastDeleteMap[string, int](1)
+myMap := maps.NewOrderedMap[string, int](1)
 myMap.Set("apples", 2)
 myMap.Delete("apples")
 ```
 
-### OrderedMap.Iterate, OrderedFastDeleteMap.Iterate
+### OrderedMap.Iterate
 
 Iterates over map elements in the order they are inserted.
 
@@ -345,7 +296,7 @@ Iterates over map elements in the order they are inserted.
 **Usage example:**
 
 ```go
-myMap := maps.NewOrderedFastDeleteMap[string, int](1)
+myMap := maps.NewOrderedMap[string, int](1)
 myMap.Set("apples", 2)
 myMap.Set("bananas", 4)
 for fruit, amount := range myMap.Iterate() {
