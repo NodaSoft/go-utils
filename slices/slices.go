@@ -153,6 +153,17 @@ func ToKeyMap[T comparable](sl []T) map[T]bool {
 	return keyMap
 }
 
+// GroupBy groups slice elements into a map using keys returned by keyFn.
+func GroupBy[K comparable, V any](s []V, keyFn func(V) K) map[K][]V {
+	m := make(map[K][]V, len(s))
+	for _, v := range s {
+		k := keyFn(v)
+		m[k] = append(m[k], v)
+	}
+
+	return m
+}
+
 // SliceDiff returns a slice that contains elements present in the first slice but absent in the others.
 func SliceDiff[T comparable](slices ...[]T) []T {
 	if len(slices) == 1 {

@@ -49,6 +49,43 @@ func TestToKeyMap(t *testing.T) {
 	assert.Equal(t, expected, r)
 }
 
+func TestGroupBy(t *testing.T) {
+	type user struct {
+		name string
+		role string
+	}
+
+	users := []user{
+		{name: "Ann", role: "admin"},
+		{name: "John", role: "user"},
+		{name: "Bob", role: "user"},
+		{name: "Kate", role: "admin"},
+	}
+
+	r := GroupBy(users, func(u user) string {
+		return u.role
+	})
+
+	assert.Equal(t, map[string][]user{
+		"admin": {
+			{name: "Ann", role: "admin"},
+			{name: "Kate", role: "admin"},
+		},
+		"user": {
+			{name: "John", role: "user"},
+			{name: "Bob", role: "user"},
+		},
+	}, r)
+}
+
+func TestGroupBy_EmptySlice(t *testing.T) {
+	r := GroupBy([]int{}, func(v int) int {
+		return v % 2
+	})
+
+	assert.Equal(t, map[int][]int{}, r)
+}
+
 func TestSliceDiff(t *testing.T) {
 	r := SliceDiff([]uint{1, 2, 3, 4}, []uint{2, 3})
 	assert.Equal(t, []uint{1, 4}, r)
